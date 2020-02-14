@@ -61,6 +61,8 @@ router.post("/", middleware.validateActionBody, middleware.validateProjectID, (r
 
 router.put("/:id", middleware.validateActionID, middleware.validateActionBody, middleware.validateProjectID, (req, res) => {
 
+    let id = req.body["project_id"];
+
     database.update(id, req.body)
         .then(response => {
                 console.log("PUT '/:id':", response);
