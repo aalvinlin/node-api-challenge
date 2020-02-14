@@ -44,8 +44,6 @@ router.delete("/:id", middleware.validateActionID, (req, res) => {
 
 router.post("/", middleware.validateActionBody, middleware.validateProjectID, (req, res) => {
 
-    console.log("req.body contains...", req.body);
-
     database.insert(req.body)
         .then(response => {
                 console.log("POST '/':", response);
