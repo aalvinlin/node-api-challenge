@@ -64,7 +64,7 @@ const App = () => {
             return (
               <div key={"action" + action.id}>
 
-                <h4>{action.description} ({action.completed ? "completed" : "not complete"})</h4>
+                <h3>{action.description} ({action.completed ? "completed" : "not complete"})</h3>
                 <p>{action.notes}</p>
                 <hr />
 
