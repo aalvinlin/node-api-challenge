@@ -40,4 +40,13 @@ router.delete("/:id", middleware.validateActionID, (req, res) => {
         })
 });
 
+// POST "/"
+
+router.post("/", middleware.validateActionBody, middleware.validateProjectID, (req, res) => {
+
+    // res.status(200).json(req.body.actionData);
+});
+
+
+
 module.exports = router;

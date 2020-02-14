@@ -41,5 +41,19 @@ router.delete("/:id", middleware.validateProjectID, (req, res) => {
         })
 });
 
+// POST "/"
+router.post("/", middleware.validateProjectBody, (req, res) => {
+
+    database.insert(req.body)
+        .then(response => {
+                console.log("POST '/':", response);
+                res.status(200).json(response);
+            })
+        .catch(error => {
+            console.log("POST '/' error:", error);
+            res.status(500).json({error: "Couldn't add data to projects database."});
+        })
+
+});
 
 module.exports = router;
