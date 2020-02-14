@@ -21,14 +21,14 @@ router.get("/", (req, res) => {
 // GET "/:id"
 router.get("/:id", middleware.validateProjectID, (req, res) => {
 
-    res.status(200).json(req.body.projectData);
+    res.status(200).json(req.projectData);
 
 });
 
 // DELETE "/:id"
 router.delete("/:id", middleware.validateProjectID, (req, res) => {
 
-    let id = req.body.projectData.id;
+    let id = req.projectData.id;
 
     database.remove(id)
         .then(response => {

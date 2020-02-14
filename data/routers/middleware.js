@@ -13,7 +13,9 @@ module.exports = {
 
 function validateProjectID(req, res, next) {
 
-    let id = req.params.id;
+    // if called after validateActionBody, get ID from req.body["project_id"].
+    // otherwise, get ID from the URL.
+    let id = req.body["project_id"] || req.params.id;
 
     projectDatabase.get(id)
         .then(response => {
@@ -23,7 +25,7 @@ function validateProjectID(req, res, next) {
                     { res.status(400).json({error: "No project with ID " + id + " found."}); }
                     else
                     {
-                        req.body.projectData = response;
+                        req.projectData = response;
                         next();
                     }
             })
@@ -55,7 +57,7 @@ function validateActionID(req, res, next) {
                     { res.status(400).json({error: "No action with ID " + id + " found."}); }
                 else
                     {
-                        req.body.actionData = response;
+                        req.actionData = response;
                         next();
                     }
             })

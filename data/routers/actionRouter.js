@@ -21,13 +21,13 @@ router.get("/", (req, res) => {
 // GET "/:id"
 router.get("/:id", middleware.validateActionID, (req, res) => {
 
-    res.status(200).json(req.body.actionData);
+    res.status(200).json(req.actionData);
 });
 
 // DELETE "/:id"
 router.delete("/:id", middleware.validateActionID, (req, res) => {
 
-    let id = req.body.actionData.id;
+    let id = req.actionData.id;
 
     database.remove(id)
         .then(response => {
@@ -44,7 +44,18 @@ router.delete("/:id", middleware.validateActionID, (req, res) => {
 
 router.post("/", middleware.validateActionBody, middleware.validateProjectID, (req, res) => {
 
-    // res.status(200).json(req.body.actionData);
+    console.log("req.body contains...", req.body);
+
+    database.insert(req.body)
+        .then(response => {
+                console.log("POST '/':", response);
+                res.status(200).json(response);
+            })
+        .catch(error => {
+            console.log("POST '/' error:", error);
+            res.status(500).json({error: "Couldn't add data to actions database."});
+        })
+
 });
 
 
