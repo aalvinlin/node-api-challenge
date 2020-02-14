@@ -40,13 +40,25 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+    Express allows for the creation of routes so that servers can watch for URL requests. Depending on the URL specified, different actions can be invoked. The parameters in the routes can also be used to allow dynamic URLs to supply information for the routes to handle.
+
+    Express also allows for middleware so that the data that is passed to the server can be validated or modified.
+
 - [ ] Describe Middleware?
+
+    Middleware is any type of function that intercepts data along a route and potentially modifies it before sending it to the next destination. Middleware can validate data coming in and stop sending it to its original destination if it is invalid, send the invalid data to a new destination, or automatically correct the data before sending it to the original destination. Middleware can be chained so that the output of one middleware function is sent as input to the next middleware function.
 
 - [ ] Describe a Resource?
 
+    A resource is any information that is stored on a server and can be retrieved. URIs and URLs are used to name and locate resources so that when a client asks for a particular resource, the server knows what to send. Resources can be data files, HTML files, CSS files, images, and any other form of multimedia.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+    When a request is successful, the API can return any code in the 200 range. A 200 indicates success and a 201 indicates the creation of a new resource. Additionally, the server can return the information that was just updated so the client can confirm, and/or the number of records updated in the database.
+
 - [ ] How can we partition our application into sub-applications?
+
+    Routes can be used to handle specific endpoints, as was done in this application. A route handles all requests starting with "/api/actions" and a separate route handles all requests starting with "/api/projects". Additionally, middleware functions can be moved to their own directory or file and then imported into the appropriate route handlers when needed.
 
 ## Minimum Viable Product
 
