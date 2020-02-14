@@ -57,5 +57,21 @@ router.post("/", middleware.validateActionBody, middleware.validateProjectID, (r
 });
 
 
+// PUT "/:id"
+
+router.put("/:id", middleware.validateActionID, middleware.validateActionBody, middleware.validateProjectID, (req, res) => {
+
+    database.update(id, req.body)
+        .then(response => {
+                console.log("PUT '/:id':", response);
+                res.status(200).json(response);
+            })
+        .catch(error => {
+            console.log("PUT '/:id' error:", error);
+            res.status(500).json({error: "Couldn't update data in actions database."});
+        })
+
+});
+
 
 module.exports = router;

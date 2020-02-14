@@ -72,7 +72,7 @@ function validateActionBody(req, res, next) {
         { res.status(400).json({error: "Missing post data."}) }
 
     else if (!req.body["project_id"] || !req.body.description || !req.body.notes)
-        { res.status(400).json({error: "Project id, name, and description are all required."}) }
+        { res.status(400).json({error: "Project id, description, and notes are all required."}) }
     
     else if (req.body.description.length > 128)
         { res.status(400).json({error: "Project description length cannot exceed 128 characters."}) }
