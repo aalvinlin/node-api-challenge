@@ -1,5 +1,6 @@
 const express = require("express");
-const database = require("./helpers/actionModel");
+const database = require("../helpers/actionModel");
+const middleware = require("./middleware");
 
 const router = express.Router();
 
@@ -18,13 +19,13 @@ router.get("/", (req, res) => {
 })
 
 // GET "/:id"
-router.get("/:id", validateActionID, (req, res) => {
+router.get("/:id", middleware.validateActionID, (req, res) => {
 
     res.status(200).json(req.body.actionData);
 });
 
 // DELETE "/:id"
-router.delete("/:id", validateActionID, (req, res) => {
+router.delete("/:id", middleware.validateActionID, (req, res) => {
 
     let id = req.body.actionData.id;
 
@@ -38,27 +39,5 @@ router.delete("/:id", validateActionID, (req, res) => {
             res.status(500).json({error: "Couldn't retrieve data from actions database."});
         })
 });
-
-function validateActionID(req, res, next) {
-
-    let id = req.params.id;
-
-    database.get(id)
-        .then(response => {
-                console.log("GET '/:id':", response);
-
-                if (response === null)
-                    { res.status(400).json({error: "No action with ID " + id + " found."}); }
-                else
-                    {
-                        req.body.actionData = response;
-                        next();
-                    }
-            })
-        .catch(error => {
-            console.log("GET '/:id' error:", error);
-            res.status(500).json({error: "Couldn't retrieve data from actions database."});
-        })
-}
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const express = require("express");
-const database = require("./helpers/projectModel");
+const database = require("../helpers/projectModel");
+const middleware = require("./middleware");
 
 const router = express.Router();
 
@@ -18,14 +19,14 @@ router.get("/", (req, res) => {
 })
 
 // GET "/:id"
-router.get("/:id", validateProjectID, (req, res) => {
+router.get("/:id", middleware.validateProjectID, (req, res) => {
 
     res.status(200).json(req.body.projectData);
 
 });
 
 // DELETE "/:id"
-router.delete("/:id", validateProjectID, (req, res) => {
+router.delete("/:id", middleware.validateProjectID, (req, res) => {
 
     let id = req.body.projectData.id;
 
@@ -39,28 +40,6 @@ router.delete("/:id", validateProjectID, (req, res) => {
             res.status(500).json({error: "Couldn't retrieve data from projects database."});
         })
 });
-
-function validateProjectID(req, res, next) {
-
-    let id = req.params.id;
-
-    database.get(id)
-        .then(response => {
-                console.log("GET '/:id':", response);
-
-                if (response === null)
-                    { res.status(400).json({error: "No project with ID " + id + " found."}); }
-                    else
-                    {
-                        req.body.projectData = response;
-                        next();
-                    }
-            })
-        .catch(error => {
-            console.log("GET '/:id' error:", error);
-            res.status(500).json({error: "Couldn't retrieve data from projects database."});
-        })
-}
 
 
 module.exports = router;

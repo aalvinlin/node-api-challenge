@@ -3,8 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
 
-const projectRouter = require("./data/projectRouter.js");
-const actionRouter = require("./data/actionRouter.js");
+const projectRouter = require("./data/routers/projectRouter");
+const actionRouter = require("./data/routers/actionRouter");
 
 const server = express();
 
