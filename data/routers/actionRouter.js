@@ -47,7 +47,7 @@ router.post("/", middleware.validateActionBody, middleware.validateProjectID, (r
     database.insert(req.body)
         .then(response => {
                 console.log("POST '/':", response);
-                res.status(200).json(response);
+                res.status(201).json(response);
             })
         .catch(error => {
             console.log("POST '/' error:", error);
