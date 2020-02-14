@@ -25,6 +25,14 @@ router.get("/:id", middleware.validateProjectID, (req, res) => {
 
 });
 
+// GET "/:id/actions"
+router.get("/:id/actions", middleware.validateProjectID, (req, res) => {
+
+    res.status(200).json(req.projectData.actions);
+
+});
+
+
 // DELETE "/:id"
 router.delete("/:id", middleware.validateProjectID, (req, res) => {
 
