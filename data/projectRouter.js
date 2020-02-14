@@ -24,6 +24,21 @@ router.get("/:id", validateProjectID, (req, res) => {
 
 });
 
+// DELETE "/:id"
+router.delete("/:id", validateProjectID, (req, res) => {
+
+    let id = req.body.projectData.id;
+
+    database.remove(id)
+        .then(response => {
+                console.log("DELETE '/:id':", response);
+                res.status(200).json(response);
+            })
+        .catch(error => {
+            console.log("GET '/:id' error:", error);
+            res.status(500).json({error: "Couldn't retrieve data from projects database."});
+        })
+});
 
 function validateProjectID(req, res, next) {
 

@@ -17,9 +17,26 @@ router.get("/", (req, res) => {
         })
 })
 
+// GET "/:id"
 router.get("/:id", validateActionID, (req, res) => {
 
     res.status(200).json(req.body.actionData);
+});
+
+// DELETE "/:id"
+router.delete("/:id", validateActionID, (req, res) => {
+
+    let id = req.body.actionData.id;
+
+    database.remove(id)
+        .then(response => {
+                console.log("DELETE '/:id':", response);
+                res.status(200).json(response);
+            })
+        .catch(error => {
+            console.log("GET '/:id' error:", error);
+            res.status(500).json({error: "Couldn't retrieve data from actions database."});
+        })
 });
 
 function validateActionID(req, res, next) {
